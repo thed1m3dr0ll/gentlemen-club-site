@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>Gentlemen Barber Club · Mini App</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Telegram Mini App рекомендует использовать безопасные цвета, но мы держим свой бренд и при желании можем подмешать themeParams через JS. [web:272][web:273] -->
+  <!-- Telegram Mini App рекомендует использовать безопасные цвета, но мы держим свой бренд и при желании можем подмешать themeParams через JS.  -->
   <style>
     * { margin:0; padding:0; box-sizing:border-box; }
     :root {
@@ -333,7 +333,7 @@
     <!-- VIEW: CLUB -->
     <section id="view-club" class="view">
       <p class="greeting">
-        Клуб Gentlemen — это не чат ради чата, а твоё место в сообществе клиентов барбершопа.[web:286][web:287]
+        Клуб Gentlemen — это не чат ради чата, а твоё место в сообществе клиентов барбершопа.
       </p>
       <div class="card">
         <div class="pill">Новости клуба</div>
@@ -393,7 +393,7 @@
   const tg = window.Telegram && window.Telegram.WebApp ? window.Telegram.WebApp : null;
 
   if (tg) {
-    tg.expand(); // занять максимум высоты внутри Telegram [web:273][web:280]
+    tg.expand(); // занять максимум высоты внутри Telegram 
     const user = tg.initDataUnsafe && tg.initDataUnsafe.user;
     if (user) {
       const name = user.first_name || user.username || 'гость';
@@ -414,7 +414,7 @@
   }
 
   function openBooking() {
-    // В боевой версии здесь можно открыть форму или отправить callback в бота. [web:288][web:289]
+    // В боевой версии здесь можно открыть форму или отправить callback в бота. 
     if (tg) {
       tg.sendData(JSON.stringify({action:'open_booking'}));
     } else {

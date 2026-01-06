@@ -2,19 +2,16 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Gentlemen Barber Club — барбершоп «Джентльмены культуры»</title>
   <meta name="description" content="Gentlemen Barber Club — закрытый мужской барбер-клуб в Нижнем Новгороде, барбершоп «Джентльмены культуры» на Белозёрской 4. Культура, а не конвейер.">
   <style>
     * { margin:0; padding:0; box-sizing:border-box; }
     :root {
-      /* фон в цвет логотипа: тёмно-красный + графит */
       --bg:#180b0c;
       --bg2:#050306;
-      /* золото под акценты */
       --accent:#e0b15a;
       --accent-soft:#b8873a;
-      /* текст */
       --text:#f7f3ea;
       --muted:#a89d8f;
       --danger:#c75a5a;
@@ -32,7 +29,6 @@
     }
     body.page-loaded { opacity:1; }
 
-    /* Анимации при входе */
     @keyframes slideFadeUp {
       from { opacity:0; transform:translateY(18px); }
       to   { opacity:1; transform:translateY(0); }
@@ -41,14 +37,10 @@
       from { opacity:0; transform:translateX(18px); }
       to   { opacity:1; transform:translateX(0); }
     }
-    .animate-hero-left {
-      animation: slideFadeUp .7s ease forwards;
-    }
-    .animate-hero-right {
-      animation: slideFadeRight .7s ease .15s forwards;
-    }
+    .animate-hero-left { animation: slideFadeUp .7s ease forwards; }
+    .animate-hero-right { animation: slideFadeRight .7s ease .15s forwards; }
 
-    /* Оверлей "двери клуба" */
+    /* DOOR OVERLAY */
     #doorOverlay {
       position:fixed;
       inset:0;
@@ -119,7 +111,7 @@
       to   { opacity:1; transform:translateY(0); }
     }
 
-    .container { max-width: 1180px; margin: 0 auto; padding: 0 28px; }
+    .container { max-width: 1180px; margin: 0 auto; padding: 0 20px; }
 
     header {
       position: sticky;
@@ -133,35 +125,38 @@
       display:flex;
       justify-content:space-between;
       align-items:center;
-      padding:14px 0;
+      padding:10px 0;
+      gap:12px;
     }
     .logo {
       font-family: "Georgia", "Times New Roman", serif;
       letter-spacing:.18em;
-      font-size:13px;
+      font-size:12px;
       text-transform:uppercase;
-      color:#f7f3ea;
+      color:var(--text);
       display:flex;
       align-items:center;
-      gap:8px;
+      gap:6px;
+      min-width:0;
     }
     .logo img {
-      height:60px;
-      width:60px;
+      height:40px;
+      width:40px;
       border-radius:50%;
       object-fit:cover;
-      box-shadow:0 0 24px rgba(224,177,90,0.45);
-      border:3px solid rgba(0,0,0,0.8);
+      box-shadow:0 0 18px rgba(224,177,90,0.4);
+      border:2px solid rgba(0,0,0,0.8);
       background:#b0191f;
+      flex-shrink:0;
     }
     .logo span { color:var(--accent); }
 
     .nav-links {
       display:flex;
-      gap:22px;
-      font-size:13px;
+      gap:16px;
+      font-size:11px;
       text-transform:uppercase;
-      letter-spacing:.14em;
+      letter-spacing:.12em;
     }
     .nav-links a {
       color:var(--muted);
@@ -181,15 +176,16 @@
     .nav-links a:hover::after { width:100%; }
 
     .nav-cta {
-      border:1px solid rgba(224,177,90,.7);
-      padding:8px 18px;
+      border:1px solid rgba(224,177,90,.6);
+      padding:6px 14px;
       border-radius:999px;
-      font-size:11px;
-      letter-spacing:.16em;
+      font-size:10px;
+      letter-spacing:.14em;
       text-transform:uppercase;
       background:rgba(12,4,6,0.7);
       color:var(--accent);
       cursor:pointer;
+      flex-shrink:0;
     }
     .nav-cta:hover {
       background:var(--accent);
@@ -197,43 +193,43 @@
     }
 
     .hero {
-      padding:90px 0 70px;
+      padding:60px 0 50px;
       display:grid;
       grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
-      gap:40px;
+      gap:30px;
       align-items:center;
     }
     .hero-kicker {
-      font-size:12px;
+      font-size:11px;
       letter-spacing:.2em;
       text-transform:uppercase;
       color:var(--accent-soft);
-      margin-bottom:18px;
+      margin-bottom:14px;
     }
     .hero-title {
       font-family:"Georgia","Times New Roman",serif;
-      font-size:32px;
+      font-size:28px;
       line-height:1.3;
-      margin-bottom:18px;
+      margin-bottom:16px;
     }
     .hero-title span { color:var(--accent); }
     .hero-sub {
-      font-size:15px;
+      font-size:14px;
       color:var(--muted);
       max-width:480px;
-      margin-bottom:26px;
+      margin-bottom:20px;
     }
     .hero-badges {
       display:flex;
       flex-wrap:wrap;
-      gap:10px;
-      margin-bottom:26px;
+      gap:8px;
+      margin-bottom:20px;
     }
     .badge {
       border-radius:999px;
       border:1px solid rgba(224,177,90,0.45);
-      padding:5px 12px;
-      font-size:11px;
+      padding:4px 10px;
+      font-size:10px;
       letter-spacing:.12em;
       text-transform:uppercase;
       color:var(--accent);
@@ -242,30 +238,30 @@
     .hero-cta-row {
       display:flex;
       flex-wrap:wrap;
-      gap:14px;
+      gap:12px;
       align-items:center;
     }
     .btn-primary {
       border:none;
       border-radius:999px;
-      padding:12px 26px;
-      font-size:12px;
-      letter-spacing:.14em;
+      padding:10px 22px;
+      font-size:11px;
+      letter-spacing:.12em;
       text-transform:uppercase;
       background:var(--accent);
       color:var(--bg);
       cursor:pointer;
     }
     .btn-primary:hover { filter:brightness(1.08); }
-    .hero-note { font-size:12px; color:var(--muted); }
+    .hero-note { font-size:11px; color:var(--muted); }
     .hero-note span { color:var(--accent-soft); }
     .hero-note a { color:var(--accent); }
 
     .hero-card {
       background: radial-gradient(circle at top, #3a1818 0, #080406 60%);
-      border-radius:22px;
+      border-radius:18px;
       border:1px solid rgba(224,177,90,0.35);
-      padding:22px 20px;
+      padding:18px 16px;
       position:relative;
       overflow:hidden;
     }
@@ -283,13 +279,13 @@
     .hc-top {
       display:flex;
       justify-content:space-between;
-      margin-bottom:16px;
+      margin-bottom:14px;
       align-items:center;
     }
     .hc-label {
-      font-size:11px;
+      font-size:10px;
       text-transform:uppercase;
-      letter-spacing:.18em;
+      letter-spacing:.16em;
       color:var(--muted);
     }
     .hc-dot {
@@ -300,12 +296,12 @@
     }
     .hc-quote {
       font-family:"Georgia","Times New Roman",serif;
-      font-size:13px;
+      font-size:12px;
       line-height:1.5;
-      margin-bottom:16px;
+      margin-bottom:14px;
     }
     .hc-meta {
-      font-size:11px;
+      font-size:10px;
       color:var(--muted);
       display:flex;
       justify-content:space-between;
@@ -314,650 +310,82 @@
     .hc-meta span { color:var(--accent); }
 
     .section {
-      padding:60px 0;
+      padding:50px 0;
       border-top:1px solid rgba(224,177,90,0.16);
     }
     .section-title {
       font-family:"Georgia","Times New Roman",serif;
-      font-size:22px;
+      font-size:20px;
       margin-bottom:10px;
     }
     .section-sub {
-      font-size:14px;
+      font-size:13px;
       color:var(--muted);
       max-width:480px;
-      margin-bottom:28px;
+      margin-bottom:24px;
     }
 
     .code-grid {
       display:grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap:24px;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap:16px;
     }
     .code-item {
       background:linear-gradient(145deg,#2a1013,#090305);
-      border-radius:16px;
-      padding:18px 16px;
+      border-radius:14px;
+      padding:14px;
       border:1px solid rgba(224,177,90,0.28);
     }
     .code-tag {
-      font-size:11px;
-      letter-spacing:.16em;
-      text-transform:uppercase;
-      color:var(--accent-soft);
-      margin-bottom:8px;
-    }
-    .code-title { font-size:14px; margin-bottom:6px; }
-    .code-text { font-size:13px; color:var(--muted); }
-
-    .persona-grid {
-      display:grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap:20px;
-      margin-top:24px;
-    }
-    .persona {
-      border-radius:16px;
-      border:1px solid rgba(224,177,90,0.25);
-      padding:16px 16px 14px;
-      background:radial-gradient(circle at top, #2d1418, #070306);
-    }
-    .persona-label {
-      font-size:11px;
-      letter-spacing:.16em;
+      font-size:10px;
+      letter-spacing:.14em;
       text-transform:uppercase;
       color:var(--accent-soft);
       margin-bottom:6px;
     }
-    .persona-title { font-size:14px; margin-bottom:6px; }
-    .persona-text { font-size:13px; color:var(--muted); }
+    .code-title { font-size:13px; margin-bottom:4px; }
+    .code-text { font-size:12px; color:var(--muted); line-height:1.4; }
+
+    .persona-grid {
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap:16px;
+      margin-top:20px;
+    }
+    .persona {
+      border-radius:14px;
+      border:1px solid rgba(224,177,90,0.25);
+      padding:12px;
+      background:radial-gradient(circle at top, #2d1418, #070306);
+    }
+    .persona-label {
+      font-size:10px;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      color:var(--accent-soft);
+      margin-bottom:4px;
+    }
+    .persona-title { font-size:13px; margin-bottom:4px; }
+    .persona-text { font-size:12px; color:var(--muted); line-height:1.4; }
 
     .rituals-grid {
       display:grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap:22px;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap:16px;
       margin-top:10px;
     }
     .ritual {
-      border-radius:18px;
-      padding:18px 16px 16px;
+      border-radius:14px;
+      padding:14px;
       background:linear-gradient(145deg,#201015,#070306);
       border:1px solid rgba(224,177,90,0.24);
     }
     .ritual-tag {
-      font-size:11px;
-      letter-spacing:.16em;
-      text-transform:uppercase;
-      color:var(--accent-soft);
-      margin-bottom:8px;
-    }
-    .ritual-title { font-size:15px; margin-bottom:6px; }
-    .ritual-text { font-size:13px; color:var(--muted); margin-bottom:10px; }
-    .ritual-meta { font-size:12px; color:var(--accent-soft); }
-
-    .avg-check {
-      margin-top:20px;
-      font-size:12px;
-      color:var(--muted);
-    }
-    .avg-check span { color:var(--accent); }
-
-    .master-block {
-      display:grid;
-      grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
-      gap:28px;
-      align-items:flex-start;
-    }
-    .master-card {
-      border-radius:18px;
-      padding:18px 16px;
-      background:radial-gradient(circle at top, #2a1316, #060406);
-      border:1px solid rgba(224,177,90,0.28);
-    }
-    .master-label {
-      font-size:11px;
-      letter-spacing:.16em;
+      font-size:10px;
+      letter-spacing:.14em;
       text-transform:uppercase;
       color:var(--accent-soft);
       margin-bottom:6px;
     }
-    .master-name { font-size:16px; margin-bottom:8px; }
-    .master-text {
-      font-size:13px;
-      color:var(--muted);
-      margin-bottom:14px;
-    }
-
-    .photo-placeholder {
-      width:100%;
-      height:180px;
-      border-radius:16px;
-      border:1px dashed rgba(224,177,90,0.7);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      text-align:center;
-      padding:12px;
-      font-size:12px;
-      color:var(--muted);
-      background:rgba(24,11,12,0.85);
-      margin-bottom:14px;
-    }
-
-    .stories {
-      display:grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap:18px;
-    }
-    .story {
-      border-radius:16px;
-      padding:14px 14px 12px;
-      background:#080306;
-      border:1px solid rgba(224,177,90,0.22);
-    }
-    .story-role {
-      font-size:11px;
-      text-transform:uppercase;
-      letter-spacing:.16em;
-      color:var(--accent-soft);
-      margin-bottom:6px;
-    }
-    .story-text { font-size:13px; color:var(--muted); }
-
-    .club-form {
-      display:grid;
-      grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
-      gap:24px;
-      align-items:flex-start;
-    }
-    .form-card {
-      border-radius:18px;
-      padding:18px 16px;
-      background:linear-gradient(145deg,#2a1218,#070306);
-      border:1px solid rgba(224,177,90,0.3);
-    }
-    .form-row { margin-bottom:12px; }
-    label {
-      display:block;
-      font-size:12px;
-      color:var(--muted);
-      margin-bottom:4px;
-    }
-    input, textarea {
-      width:100%;
-      border-radius:10px;
-      border:1px solid rgba(224,177,90,0.4);
-      background:#120609;
-      color:var(--text);
-      padding:9px 10px;
-      font-size:13px;
-      outline:none;
-    }
-    textarea { resize:vertical; min-height:70px; }
-    input:focus, textarea:focus {
-      border-color:var(--accent);
-      box-shadow:0 0 0 1px rgba(224,177,90,0.4);
-    }
-    .form-note {
-      font-size:11px;
-      color:var(--muted);
-      margin-top:10px;
-    }
-    .form-success {
-      font-size:12px;
-      color:#34d399;
-      margin-top:10px;
-      display:none;
-    }
-    .form-error {
-      font-size:12px;
-      color:var(--danger);
-      margin-top:6px;
-      display:none;
-    }
-
-    .club-copy {
-      font-size:13px;
-      color:var(--muted);
-    }
-
-    .contacts-block {
-      font-size:13px;
-      color:var(--muted);
-    }
-    .contacts-block strong { color:var(--text); }
-    .contacts-block a { color:var(--accent); text-decoration:none; }
-
-    footer {
-      border-top:1px solid rgba(224,177,90,0.25);
-      padding:18px 0 26px;
-      font-size:11px;
-      color:var(--muted);
-      text-align:center;
-    }
-
-    @media (max-width:900px) {
-      .container {
-        padding-top:0 16px;
-      }
-      .hero-card { order:-1; }
-      .master-block,
-      .club-form { grid-template-columns:1fr; }
-      .nav-links { display:none; }
-    }
-  </style>
-</head>
-<body>
-<div id="doorOverlay">
-  <div class="door door-left"></div>
-  <div class="door door-right"></div>
-  <div class="door-logo-wrapper">
-    <img src="logo-gentlemen.png" alt="Gentlemen Barber Club" class="door-logo">
-    <div class="door-text">Gentlemen Barber Club</div>
-  </div>
-</div>
-
-<header>
-  <div class="container nav">
-    <div class="logo">
-      <img src="logo-gentlemen.png" alt="Gentlemen Barber Club">
-      <span>Gentlemen</span> Barber Club
-    </div>
-    <nav class="nav-links">
-      <a href="#code">Код клуба</a>
-      <a href="#rituals">Ритуалы</a>
-      <a href="#master">Мастер</a>
-      <a href="#join">Вступить</a>
-      <a href="#contacts">Контакты</a>
-    </nav>
-    <button class="nav-cta" onclick="scrollToJoin()">Запросить приглашение</button>
-  </div>
-</header>
-
-<main class="container">
-  <!-- HERO -->
-  <section class="hero" id="top">
-    <div class="animate-hero-left">
-      <div class="hero-kicker">Закрытый мужской клуб · Нижний Новгород · Белозёрская 4</div>
-      <h1 class="hero-title">
-        Если образ для тебя — не главное, рядом есть сетевые барбершопы.<br>
-        <span>Если важен свой мастер — здесь тебя ждёт кресло.</span>
-      </h1>
-      <p class="hero-sub">
-        Gentlemen Barber Club — эволюция «Джентльменов культуры».
-        Не франшиза и не конвейер, а барбершоп, в котором есть душа, и каждую работу
-        мастер делает как авторскую, а не «по прайсу».
-      </p>
-      <div class="hero-badges">
-        <div class="badge">Культура, а не массовка</div>
-        <div class="badge">Белозёрская 4</div>
-        <div class="badge">10:00–22:00 без выходных</div>
-      </div>
-      <div class="hero-cta-row">
-        <button class="btn-primary" onclick="scrollToJoin()">Запросить приглашение</button>
-        <div class="hero-note">
-          <span>Или записаться сразу:</span><br>
-          <a href="https://n1258165.yclients.com/" target="_blank" rel="noopener noreferrer">
-            онлайн‑запись через YClients
-          </a>
-        </div>
-      </div>
-    </div>
-
-    <aside class="hero-card animate-hero-right">
-      <div class="hero-card-inner">
-        <div class="hc-top">
-          <div class="hc-label">Барбершоп, в котором есть душа</div>
-          <div class="hc-dot"></div>
-        </div>
-        <div class="hc-quote">
-          «Вот что ценнее? Авторская работа, которая сохраняет свою уникальность,
-          где мастер оставляет сердце и вкладывает душу, или заводское массовое
-          производство, нацеленное лишь на прибыль?»
-        </div>
-        <div class="hc-meta">
-          <span>«Джентльмены культуры»</span>
-          <span>Выбирать тебе</span>
-        </div>
-      </div>
-    </aside>
-  </section>
-
-  <!-- CODE -->
-  <section class="section" id="code">
-    <h2 class="section-title">Код клуба Gentlemen</h2>
-    <p class="section-sub">
-      Мы не гонимся за количеством стрижек в день.
-      Здесь важны время, уважение и образ, который ты забираешь с собой.
-    </p>
-
-    <div class="code-grid">
-      <div class="code-item">
-        <div class="code-tag">Правило №1</div>
-        <div class="code-title">Время дороже денег</div>
-        <div class="code-text">
-          Запись — по времени. Опоздание более чем на 10 минут — визит отменён.
-          Мы так же бережём твоё время, как и своё.
-        </div>
-      </div>
-      <div class="code-item">
-        <div class="code-tag">Правило №2</div>
-        <div class="code-title">Не торгуемся за результат</div>
-        <div class="code-text">
-          Здесь нет бесконечных скидок и акций «только сегодня».
-          Цена отражает опыт мастера и внимание к деталям.
-        </div>
-      </div>
-      <div class="code-item">
-        <div class="code-tag">Правило №3</div>
-        <div class="code-title">Тишина — тоже сервис</div>
-        <div class="code-text">
-          Хочешь честный разговор — говорим. Нужен час тишины — оставляем тебя в покое.
-          Телефон — по твоему, а не нашему желанию.
-        </div>
-      </div>
-      <div class="code-item">
-        <div class="code-tag">Правило №4</div>
-        <div class="code-title">Не для всех</div>
-        <div class="code-text">
-          Если для тебя стрижка — просто убрать длину, тебе хватит сети.
-          Если это часть твоего образа — тебе сюда.
-        </div>
-      </div>
-    </div>
-
-    <div class="persona-grid">
-      <div class="persona">
-        <div class="persona-label">Для кого</div>
-        <div class="persona-title">Предприниматель</div>
-        <div class="persona-text">
-          Ведёт встречи лицом, а не только аватаркой. В клубе получает место,
-          где можно остановиться, собрать мысли и выйти другим человеком.
-        </div>
-      </div>
-      <div class="persona">
-        <div class="persona-label">Для кого</div>
-        <div class="persona-title">IT‑специалист</div>
-        <div class="persona-text">
-          Один раз объяснил, как хочет выглядеть. Дальше просто садится в кресло —
-          мастер помнит форму, привычки и график.
-        </div>
-      </div>
-      <div class="persona">
-        <div class="persona-label">Для кого</div>
-        <div class="persona-title">Креативщик</div>
-        <div class="persona-text">
-          Не любит «как у всех». Ищет баланс между съёмками, офисом и баром вечером.
-          Мы обновляем образ так, чтобы он везде чувствовал себя своим.
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- RITUALS -->
-  <section class="section" id="rituals">
-    <h2 class="section-title">Ритуалы клуба</h2>
-    <p class="section-sub">
-      Мы называем услуги ритуалами не ради красивого слова. Каждый — это время, внимание
-      и результат, который держится дольше воскресенья.
-    </p>
-
-    <div class="rituals-grid">
-      <div class="ritual">
-        <div class="ritual-tag">Ритуал</div>
-        <div class="ritual-title">Обновление образа</div>
-        <div class="ritual-text">
-          Стрижка под твой ритм жизни: офис, встречи, вечер. Чёткие линии там, где нужно,
-          и мягкие переходы там, где хочется свободы.
-        </div>
-        <div class="ritual-meta">
-          Обычно 45–60 минут. Образ, который держится, а не распадается через два дня.
-        </div>
-      </div>
-      <div class="ritual">
-        <div class="ritual-tag">Ритуал</div>
-        <div class="ritual-title">Сила (борода)</div>
-        <div class="ritual-text">
-          Форма, объём и аккуратность, из-за которой к тебе подходят ближе, а не дальше.
-          Машинка, ножницы, опаска — как нужно, а не как быстрее.
-        </div>
-        <div class="ritual-meta">
-          Оформление формы, работа с длиной, уход — без шаблонных контуров.
-        </div>
-      </div>
-      <div class="ritual">
-        <div class="ritual-tag">Ритуал</div>
-        <div class="ritual-title">Тишина</div>
-        <div class="ritual-text">
-          Для тех, кому нужен час без звонков и диалогов. Музыка, кресло, работа мастера —
-          и ни одного лишнего вопроса.
-        </div>
-        <div class="ritual-meta">
-          Мы сами уточним всё до начала. Дальше — только стрижка.
-        </div>
-      </div>
-      <div class="ritual">
-        <div class="ritual-tag">Ритуал</div>
-        <div class="ritual-title">Первый визит</div>
-        <div class="ritual-text">
-          Мы слушаем, смотрим, предлагаем. Настраиваем форму, длину и частоту визитов так,
-          чтобы следующий раз был не от отчаяния, а по плану.
-        </div>
-        <div class="ritual-meta">
-          Первый визит — инвестиция в то, как ты будешь выглядеть весь следующий год.
-        </div>
-      </div>
-    </div>
-
-    <div class="ritual" style="margin-top:18px;">
-      <div class="ritual-tag">Премиум‑уход</div>
-      <div class="ritual-title">Премиум косметика для бороды и волос</div>
-      <div class="ritual-text">
-        Господа, для вас мы работаем на профессиональной мужской косметике премиум‑класса.
-        В нашем салоне вы получаете не только качественные услуги, но и профессиональный
-        уход за бородой и волосами.
-      </div>
-      <div class="ritual-meta">
-        Все средства открыты и доступны. Никакой случайной продукции из масс‑маркета.
-      </div>
-    </div>
-
-    <p class="avg-check">
-      Средний чек в клубе обычно в диапазоне <span>1500–2500 ₽</span>. Точная сумма зависит
-      от ритуала и времени, которое мы уделяем твоему образу.
-    </p>
-  </section>
-
-  <!-- MASTER -->
-  <section class="section" id="master">
-    <h2 class="section-title">Мастер клуба</h2>
-    <p class="section-sub">
-      Вашему вниманию — квалифицированные мастера с высокими стандартами качества 
-      и уважением к ценностям клиента. За годы работы каждый выработал свой особый стиль
-      и будет рад приобщить тебя к этому уровню сервиса. Здесь не просто барбершоп — 
-      это культура и образ жизни.
-    </p>
-
-    <div class="master-block">
-      <div class="master-card">
-        <div class="photo-placeholder">
-          Здесь будет фото мастера‑владельца в интерьере Gentlemen Barber
-        </div>
-        <div class="master-label">Мастер‑владелец</div>
-        <div class="master-name">Тот, кто стрижёт, а не управляет сетью</div>
-        <div class="master-text">
-          10+ лет за машинкой и бритвой. Он знает по имени не только клиентов, но и их привычки:
-          кто приходит после зала, кто — перед переговорами, а кто — перед тем самым свиданием.
-          <br><br>
-          Для него нет «ещё одного клиента по записи». Есть человек, который садится в кресло,
-          и образ, который должен выйти в дверь.
-        </div>
-      </div>
-      <div class="stories">
-        <div class="story">
-          <div class="photo-placeholder">
-            Здесь будет фото «Предпринимателя» до/после (пример образа)
-          </div>
-          <div class="story-role">«Предприниматель»</div>
-          <div class="story-text">
-            Входит с телефоном в руке, выходит с головой, в которой всё разложено.
-            Для него стрижка — точка, где можно остановиться и навести порядок в образе.
-          </div>
-        </div>
-        <div class="story">
-          <div class="photo-placeholder">
-            Здесь будет фото IT‑специалиста в кресле клуба
-          </div>
-          <div class="story-role">«IT‑специалист»</div>
-          <div class="story-text">
-            Весь день в коде и задачах. В клубе он один раз объяснил, как хочет выглядеть,
-            и теперь просто садится в кресло — остальное делает мастер.
-          </div>
-        </div>
-        <div class="story">
-          <div class="photo-placeholder">
-            Здесь будет фото креативщика с более смелой стрижкой
-          </div>
-          <div class="story-role">«Креативщик»</div>
-          <div class="story-text">
-            Не любит форматы «как у всех». Раз в месяц мы вместе ищем баланс между «можно на съёмки»
-            и «можно залететь в бар ночью» и обновляем форму.
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- JOIN -->
-  <section class="section" id="join">
-    <h2 class="section-title">Вступить в клуб</h2>
-    <p class="section-sub">
-      Мы не собираем лист ожидания ради цифр. Нам важнее, чтобы в кресле сидели «свои».
-      Расскажи немного о себе — и если у нас есть место, мы свяжемся.
-    </p>
-
-    <div class="club-form">
-      <div class="form-card">
-        <form id="clubForm" onsubmit="handleSubmit(event)">
-          <div class="form-row">
-            <label for="name">Имя</label>
-            <input id="name" name="name" type="text" placeholder="Как тебя зовут?">
-          </div>
-          <div class="form-row">
-            <label for="contact">Телефон или Telegram</label>
-            <input id="contact" name="contact" type="text" placeholder="+7... или @username">
-          </div>
-          <div class="form-row">
-            <label for="activity">Чем ты занимаешься?</label>
-            <input id="activity" name="activity" type="text" placeholder="Коротко о деле">
-          </div>
-          <div class="form-row">
-            <label for="why">Зачем тебе клуб, а не обычный барбершоп?</label>
-            <textarea id="why" name="why" placeholder="Пара предложений — этого достаточно"></textarea>
-          </div>
-          <button class="btn-primary" type="submit">Отправить заявку</button>
-          <div class="form-note">
-            Мы не перезваниваем через 5 минут, чтобы «додавить» скидкой.<br>
-            Если увидим, что мы подходим друг другу, напишем сами.
-          </div>
-          <div id="formSuccess" class="form-success">
-            Заявка отправлена (демо). В боевой версии она придёт в Telegram или на почту мастеру.
-          </div>
-          <div id="formError" class="form-error">
-            Пожалуйста, заполни хотя бы имя и контакт.
-          </div>
-        </form>
-      </div>
-      <div class="club-copy">
-        <p>
-          Gentlemen Barber Club — это не рекламная вывеска, а фильтр.
-          Для кого‑то мы будем «слишком серьёзными ради стрижки». И это нормально.
-        </p>
-        <br>
-        <p>
-          Мы не обещаем понравиться всем. Мы делаем так, чтобы тем, кто однажды садится в кресло,
-          не пришлось искать другого мастера в следующем квартале.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- CONTACTS -->
-  <section class="section" id="contacts">
-    <h2 class="section-title">Как нас найти</h2>
-    <p class="section-sub">
-      Реальный адрес, телефоны и мессенджеры барбершопа «Джентльмены культуры».
-      В боевой версии здесь же будет интерактивная карта.
-    </p>
-    <div class="contacts-block">
-      <p><strong>Город:</strong> Нижний Новгород</p>
-      <p><strong>Адрес:</strong> Белозёрская 4</p>
-      <p><strong>Телефон:</strong> <a href="tel:+79877553000">+7 987 755 30 00</a></p>
-      <p><strong>WhatsApp:</strong>
-        <a href="https://wa.me/79875578617?text=%D0%97%D0%B4%D1%80%D0%B0%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%B7%D0%B0%D0%BF%D0%B8%D1%81%D0%B0%D1%82%D1%8C%D1%81%D1%8F"
-           target="_blank" rel="noopener noreferrer">
-          написать в WhatsApp
-        </a>
-      </p>
-      <p><strong>Telegram:</strong>
-        <a href="https://t.me/+79877553000" target="_blank" rel="noopener noreferrer">
-          @gentlemenbarber
-        </a>
-      </p>
-      <p><strong>VK:</strong>
-        <a href="https://vk.com/barbershop_gentlemen" target="_blank" rel="noopener noreferrer">
-          vk.com/barbershop_gentlemen
-        </a>
-      </p>
-      <p><strong>График:</strong> 10:00 – 22:00, без выходных</p>
-    </div>
-  </section>
-</main>
-
-<footer>
-  © 2026 Gentlemen Barber Club · демо‑версия сайта без реальных интеграций
-</footer>
-
-<script>
-  function scrollToJoin() {
-    const el = document.getElementById('join');
-    if (el) el.scrollIntoView({behavior:'smooth'});
-  }
-
-  document.querySelectorAll('a[href^="#"]').forEach(a => {
-    a.addEventListener('click', e => {
-      e.preventDefault();
-      const target = document.querySelector(a.getAttribute('href'));
-      if (target) target.scrollIntoView({behavior:'smooth'});
-    });
-  });
-
-  function handleSubmit(e) {
-    e.preventDefault();
-    const name = document.getElementById('name').value.trim();
-    const contact = document.getElementById('contact').value.trim();
-    const success = document.getElementById('formSuccess');
-    const error = document.getElementById('formError');
-    if (!name || !contact) {
-      error.style.display = 'block';
-      success.style.display = 'none';
-      return;
-    }
-    error.style.display = 'none';
-    success.style.display = 'block';
-  }
-
-  // Анимация "открытие дверей" + проявление страницы
-  window.addEventListener('load', () => {
-    const overlay = document.getElementById('doorOverlay');
-    setTimeout(() => {
-      overlay.classList.add('open');
-      setTimeout(() => {
-        overlay.classList.add('hidden');
-        document.body.classList.add('page-loaded');
-      }, 1000);
-    }, 700);
-  });
-</script>
-</body>
-</html>
+    .ritual-title { font-size:13px; margin-bottom:4px; }
+    .ritual-text { font-size:12px; color:var(--muted); margin-bottom:8px; line-height:1.4

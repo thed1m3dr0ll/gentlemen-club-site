@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Gentlemen Barber Club · Mini App</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Telegram Mini App рекомендует использовать безопасные цвета, но мы держим свой бренд и при желании можем подмешать themeParams через JS. [web:272][web:273] -->
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    :root {
+      --bg:#180b0c;
+      --bg2:#050306;
+      --accent:#e0b15a;
+      --accent-soft:#b8873a;
+      --text:#f7f3ea;
+      --muted:#a89d8f;
+      --danger:#c75a5a;
+    }
+    html, body {
+      height:100%;
+    }
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", Arial, sans-serif;
+      background:
+        radial-gradient(circle at top, #3a1616 0, var(--bg) 45%),
+        radial-gradient(circle at bottom, #0c0709 0, #000000 55%);
+      color:var(--text);
+      line-height:1.5;
+      display:flex;
+      flex-direction:column;
+      overflow:hidden;
+    }
+
+    .app {
+      display:flex;
+      flex-direction:column;
+      height:100%;
+    }
+
+    /* HEADER MINI APP */
+    .app-header {
+      padding:10px 14px;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      background:linear-gradient(to right, rgba(12,4,6,0.96), rgba(12,4,6,0.85));
+      border-bottom:1px solid rgba(224,177,90,0.25);
+    }
+    .app-logo {
+      width:40px;
+      height:40px;
+      border-radius:50%;
+      object-fit:cover;
+      box-shadow:0 0 14px rgba(224,177,90,0.45);
+      border:2px solid rgba(0,0,0,0.8);
+      background:#b0191f;
+      flex-shrink:0;
+    }
+    .app-title-block {
+      display:flex;
+      flex-direction:column;
+      gap:2px;
+    }
+    .app-title {
+      font-family:"Georgia","Times New Roman",serif;
+      font-size:14px;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+    }
+    .app-subtitle {
+      font-size:11px;
+      color:var(--muted);
+    }
+
+    /* MAIN AREA */
+    .app-main {
+      flex:1;
+      padding:12px 14px 60px;
+      overflow-y:auto;
+    }
+
+    .greeting {
+      margin-bottom:14px;
+      font-size:13px;
+      color:var(--muted);
+    }
+    .greeting span {
+      color:var(--accent-soft);
+    }
+
+    .card {
+      border-radius:16px;
+      padding:12px 12px 10px;
+      background:radial-gradient(circle at top, #2a1316, #060406);
+      border:1px solid rgba(224,177,90,0.3);
+      margin-bottom:12px;
+    }
+    .card-title {
+      font-size:14px;
+      margin-bottom:4px;
+    }
+    .card-sub {
+      font-size:12px;
+      color:var(--muted);
+      margin-bottom:10px;
+    }
+
+    .btn-primary {
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      border:none;
+      border-radius:999px;
+      padding:9px 18px;
+      font-size:12px;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      background:var(--accent);
+      color:var(--bg);
+      cursor:pointer;
+    }
+    .btn-primary:active {
+      transform:scale(0.97);
+      filter:brightness(0.96);
+    }
+
+    .btn-ghost {
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      border-radius:999px;
+      padding:8px 14px;
+      font-size:11px;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      border:1px solid rgba(224,177,90,0.4);
+      color:var(--accent);
+      background:rgba(24,11,12,0.7);
+      cursor:pointer;
+    }
+    .btn-ghost:active {
+      transform:scale(0.97);
+    }
+
+    .btn-row {
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+    }
+
+    .pill {
+      display:inline-flex;
+      align-items:center;
+      border-radius:999px;
+      padding:3px 10px;
+      font-size:10px;
+      text-transform:uppercase;
+      letter-spacing:.14em;
+      border:1px solid rgba(224,177,90,0.3);
+      color:var(--accent-soft);
+      background:rgba(24,11,12,0.7);
+      margin-bottom:6px;
+    }
+
+    .list {
+      font-size:12px;
+      color:var(--muted);
+    }
+    .list-item {
+      padding:6px 0;
+      border-bottom:1px dashed rgba(224,177,90,0.18);
+    }
+    .list-item:last-child {
+      border-bottom:none;
+    }
+    .list-label {
+      font-size:11px;
+      text-transform:uppercase;
+      letter-spacing:.12em;
+      color:var(--accent-soft);
+      margin-bottom:2px;
+    }
+
+    .placeholder-box {
+      border-radius:14px;
+      border:1px dashed rgba(224,177,90,0.6);
+      padding:10px;
+      font-size:11px;
+      color:var(--muted);
+      text-align:center;
+      background:rgba(24,11,12,0.85);
+      margin-top:8px;
+    }
+
+    /* BOTTOM NAV */
+    .app-nav {
+      position:fixed;
+      left:0;
+      right:0;
+      bottom:0;
+      height:52px;
+      background:rgba(12,4,6,0.96);
+      border-top:1px solid rgba(224,177,90,0.25);
+      display:flex;
+      align-items:center;
+      justify-content:space-around;
+    }
+    .nav-item {
+      flex:1;
+      text-align:center;
+      font-size:11px;
+      color:var(--muted);
+      padding-top:4px;
+      cursor:pointer;
+    }
+    .nav-item span {
+      display:block;
+      font-size:9px;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      margin-top:2px;
+    }
+    .nav-item-icon {
+      width:18px;
+      height:18px;
+      border-radius:999px;
+      border:1px solid rgba(224,177,90,0.5);
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      font-size:11px;
+    }
+    .nav-item.active {
+      color:var(--accent);
+    }
+    .nav-item.active .nav-item-icon {
+      background:var(--accent);
+      color:var(--bg);
+    }
+
+    /* VIEWS */
+    .view { display:none; }
+    .view.active { display:block; }
+
+    /* SMALL ANIMATIONS */
+    @keyframes fadeInUp {
+      from { opacity:0; transform:translateY(10px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+    .animate-in {
+      animation:fadeInUp .35s ease;
+    }
+  </style>
+</head>
+<body>
+<div class="app">
+  <header class="app-header">
+    <!-- тот же логотип, что и на сайте: положи logo-gentlemen.png рядом с miniapp.html -->
+    <img src="logo-gentlemen.png" alt="Gentlemen Barber Club" class="app-logo">
+    <div class="app-title-block">
+      <div class="app-title">Gentlemen Barber Club</div>
+      <div class="app-subtitle">Барбершоп «Джентльмены культуры» · Нижний Новгород</div>
+    </div>
+  </header>
+
+  <main class="app-main">
+    <!-- VIEW: HOME -->
+    <section id="view-home" class="view active animate-in">
+      <p class="greeting">
+        Добро пожаловать, <span id="userName">@guest</span>. Это мини‑кабинет клуба внутри Telegram.
+      </p>
+
+      <div class="card">
+        <div class="pill">Запись</div>
+        <div class="card-title">Ближайший визит</div>
+        <div class="card-sub" id="nextVisit">
+          Пока нет активной записи. Можно выбрать ритуал и забронировать время.
+        </div>
+        <div class="btn-row">
+          <button class="btn-primary" onclick="openBooking()">Записаться</button>
+          <button class="btn-ghost" onclick="openJoin()">Вступить в клуб</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="pill">Ритуалы</div>
+        <div class="card-title">Твои любимые форматы</div>
+        <div class="list">
+          <div class="list-item">
+            <div class="list-label">Обновление образа</div>
+            Стрижка под твой ритм жизни: офис, встречи, вечер.
+          </div>
+          <div class="list-item">
+            <div class="list-label">Сила (борода)</div>
+            Форма, объём и аккуратность без шаблонных контуров.
+          </div>
+          <div class="list-item">
+            <div class="list-label">Тишина</div>
+            Час без звонков и диалогов, только работа мастера.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW: VISITS -->
+    <section id="view-visits" class="view">
+      <p class="greeting">
+        Здесь будет история твоих визитов и чеков в клубе.
+      </p>
+      <div class="card">
+        <div class="pill">История</div>
+        <div class="card-title">Последние посещения</div>
+        <div class="card-sub">
+          В демо‑версии здесь статичный пример. Позже подтянем реальные визиты из базы.
+        </div>
+        <div class="list">
+          <div class="list-item">
+            <div class="list-label">01 декабря · Обновление образа</div>
+            Стрижка + борода · 90 минут · Мастер‑владелец.
+          </div>
+          <div class="list-item">
+            <div class="list-label">05 ноября · Сила (борода)</div>
+            Коррекция формы бороды и уход премиум‑косметикой.
+          </div>
+        </div>
+        <div class="placeholder-box">
+          Позже здесь появятся реальные данные: даты, ритуалы, сумма, рекомендации мастера
+          и кнопка «Записать заново».
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW: CLUB -->
+    <section id="view-club" class="view">
+      <p class="greeting">
+        Клуб Gentlemen — это не чат ради чата, а твоё место в сообществе клиентов барбершопа.[web:286][web:287]
+      </p>
+      <div class="card">
+        <div class="pill">Новости клуба</div>
+        <div class="card-title">Сегодня в Gentlemen Barber</div>
+        <div class="list">
+          <div class="list-item">
+            <div class="list-label">Слоты</div>
+            На этой неделе есть пару вечерних мест после 20:00.
+          </div>
+          <div class="list-item">
+            <div class="list-label">Ритуал месяца</div>
+            Обновление образа + уход за бородой в одном визите.
+          </div>
+          <div class="list-item">
+            <div class="list-label">Событие</div>
+            Закрытый барбер‑ивент для клиентов клуба в январе.
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="pill">Чат</div>
+        <div class="card-title">Клубный чат в Telegram</div>
+        <div class="card-sub">
+          Здесь будет кнопка открытия закрытого чата клуба или встроенный мини‑чат.
+        </div>
+        <div class="btn-row">
+          <button class="btn-primary" onclick="openClubChat()">Открыть чат клуба</button>
+          <button class="btn-ghost" onclick="openRules()">Код клуба</button>
+        </div>
+        <div class="placeholder-box">
+          В финальной версии можно будет видеть последние сообщения, например:<br>
+          «Кто заберёт слот 19:30?», «Новый ритуал в феврале», «Фото до/после».
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <nav class="app-nav">
+    <div class="nav-item active" data-view="home" onclick="switchView('home', this)">
+      <div class="nav-item-icon">🏛</div>
+      <span>Главная</span>
+    </div>
+    <div class="nav-item" data-view="visits" onclick="switchView('visits', this)">
+      <div class="nav-item-icon">📅</div>
+      <span>Визиты</span>
+    </div>
+    <div class="nav-item" data-view="club" onclick="switchView('club', this)">
+      <div class="nav-item-icon">👥</div>
+      <span>Клуб</span>
+    </div>
+  </nav>
+</div>
+
+<script>
+  // Telegram Mini App API (если открыто внутри Telegram)
+  const tg = window.Telegram && window.Telegram.WebApp ? window.Telegram.WebApp : null;
+
+  if (tg) {
+    tg.expand(); // занять максимум высоты внутри Telegram [web:273][web:280]
+    const user = tg.initDataUnsafe && tg.initDataUnsafe.user;
+    if (user) {
+      const name = user.first_name || user.username || 'гость';
+      document.getElementById('userName').textContent = name;
+    }
+  }
+
+  function switchView(view, el) {
+    document.querySelectorAll('.view').forEach(v => {
+      v.classList.remove('active', 'animate-in');
+    });
+    const target = document.getElementById('view-' + view);
+    if (target) {
+      target.classList.add('active', 'animate-in');
+    }
+    document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+    if (el) el.classList.add('active');
+  }
+
+  function openBooking() {
+    // В боевой версии здесь можно открыть форму или отправить callback в бота. [web:288][web:289]
+    if (tg) {
+      tg.sendData(JSON.stringify({action:'open_booking'}));
+    } else {
+      alert('Здесь будет форма записи в клуб (демо).');
+    }
+  }
+
+  function openJoin() {
+    if (tg) {
+      tg.sendData(JSON.stringify({action:'open_join_form'}));
+    } else {
+      alert('Здесь будет анкета вступления в клуб (демо).');
+    }
+  }
+
+  function openClubChat() {
+    if (tg) {
+      tg.sendData(JSON.stringify({action:'open_club_chat'}));
+    } else {
+      alert('Здесь будет переход в закрытый чат клуба (демо).');
+    }
+  }
+
+  function openRules() {
+    if (tg) {
+      tg.sendData(JSON.stringify({action:'open_club_code'}));
+    } else {
+      alert('Здесь покажем код клуба Gentlemen (демо).');
+    }
+  }
+</script>
+</body>
+</html>

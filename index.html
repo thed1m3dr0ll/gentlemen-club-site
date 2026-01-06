@@ -5,308 +5,345 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gentlemen Barber Club</title>
   <style>
-    * { margin:0; padding:0; box-sizing:border-box; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     :root {
-      --bg:#180b0c;
-      --accent:#e0b15a;
-      --accent-soft:#b8873a;
-      --text:#f7f3ea;
-      --muted:#a89d8f;
-      --danger:#c75a5a;
+      --bg: #180b0c;
+      --accent: #e0b15a;
+      --accent-soft: #b8873a;
+      --text: #f7f3ea;
+      --muted: #a89d8f;
     }
-    html, body { height:100%; width:100%; }
+    
     body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", Arial, sans-serif;
-      background: radial-gradient(circle at top, #3a1616 0, var(--bg) 45%), radial-gradient(circle at bottom, #0c0709 0, #000 55%);
+      font-family: system-ui, -apple-system, sans-serif;
+      background: linear-gradient(135deg, #2a1415 0%, #180b0c 50%, #0a0304 100%);
       color: var(--text);
       line-height: 1.6;
-      opacity: 0;
-      transition: opacity 0.8s ease;
+      min-height: 100vh;
     }
-    body.page-loaded { opacity: 1; }
 
-    /* ДВЕРИ */
+    /* ДВЕРЬ АНИМАЦИЯ */
     #doorOverlay {
       position: fixed;
-      inset: 0;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       background: #000;
-      z-index: 999;
+      z-index: 9999;
       display: flex;
       justify-content: center;
       align-items: center;
-      overflow: hidden;
     }
-    .door {
+
+    .door-left, .door-right {
       position: absolute;
       top: 0;
-      bottom: 0;
       width: 50%;
-      background: linear-gradient(180deg, #1a0a0b 0%, #0a0304 50%, #050102 100%);
-      box-shadow: inset 0 0 60px rgba(0,0,0,1), 0 0 100px rgba(224,177,90,0.2);
+      height: 100%;
+      background: #1a0a0b;
+      border: 1px solid rgba(224, 177, 90, 0.4);
     }
-    .door-left { left: 0; border-right: 2px solid rgba(224,177,90,0.5); }
-    .door-right { right: 0; border-left: 2px solid rgba(224,177,90,0.5); }
+
+    .door-left { left: 0; }
+    .door-right { right: 0; }
 
     #doorOverlay.open .door-left {
-      animation: doorLeftBurst 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+      animation: doorOutLeft 1s ease-in-out forwards;
     }
+
     #doorOverlay.open .door-right {
-      animation: doorRightBurst 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+      animation: doorOutRight 1s ease-in-out forwards;
     }
 
-    @keyframes doorLeftBurst {
-      0% { transform: translateX(0); opacity: 1; }
-      100% { transform: translateX(-150vw) rotateY(-30deg); opacity: 0; }
-    }
-    @keyframes doorRightBurst {
-      0% { transform: translateX(0); opacity: 1; }
-      100% { transform: translateX(150vw) rotateY(30deg); opacity: 0; }
+    @keyframes doorOutLeft {
+      to { transform: translateX(-100vw); }
     }
 
-    .door-logo-wrapper {
+    @keyframes doorOutRight {
+      to { transform: translateX(100vw); }
+    }
+
+    .door-content {
       position: relative;
-      z-index: 1000;
+      z-index: 10000;
       text-align: center;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 16px;
+      gap: 20px;
+      animation: fadeInScale 0.6s ease-in-out 0.3s both;
     }
+
     .door-logo {
-      width: 100px;
-      height: 100px;
+      width: 120px;
+      height: 120px;
       border-radius: 50%;
+      border: 4px solid rgba(224, 177, 90, 0.9);
+      box-shadow: 0 0 30px rgba(224, 177, 90, 0.6);
       object-fit: cover;
-      box-shadow: 0 0 40px rgba(224,177,90,0.8), 0 0 60px rgba(224,177,90,0.4);
-      border: 4px solid rgba(224,177,90,0.9);
-      background: #b0191f;
-      animation: logoScale 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s both;
     }
-    .door-text {
-      font-family: "Georgia", serif;
-      letter-spacing: 0.24em;
+
+    .door-title {
+      font-family: Georgia, serif;
+      font-size: 18px;
+      letter-spacing: 0.3em;
       text-transform: uppercase;
-      font-size: 14px;
       color: var(--accent);
-      text-shadow: 0 0 20px rgba(224,177,90,0.5);
-      animation: textFade 0.8s ease 0.6s both;
-    }
-    .door-subtext {
-      font-size: 11px;
-      color: var(--muted);
-      letter-spacing: 0.16em;
-      animation: textFade 0.8s ease 0.75s both;
     }
 
-    @keyframes logoScale {
-      from { opacity: 0; transform: scale(0.7) rotateZ(-10deg); }
-      to { opacity: 1; transform: scale(1) rotateZ(0); }
+    @keyframes fadeInScale {
+      from {
+        opacity: 0;
+        transform: scale(0.8);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
     }
-    @keyframes textFade {
-      from { opacity: 0; transform: translateY(15px); }
-      to { opacity: 1; transform: translateY(0); }
+
+    #doorOverlay.hidden {
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.5s ease;
     }
 
-    #doorOverlay.hidden { display: none; }
-
-    .container { max-width: 1180px; margin: 0 auto; padding: 0 20px; }
-
+    /* MAIN CONTENT */
     header {
       position: sticky;
       top: 0;
       z-index: 50;
-      backdrop-filter: blur(18px);
-      background: linear-gradient(to right, rgba(12,4,6,0.96), rgba(12,4,6,0.85));
-      border-bottom: 1px solid rgba(224,177,90,0.2);
-      padding: 12px 0;
+      background: rgba(12, 4, 6, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(224, 177, 90, 0.2);
+      padding: 12px 20px;
     }
-    .nav { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+
+    .container { max-width: 1180px; margin: 0 auto; padding: 0 20px; }
+
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
     .logo {
-      font-family: "Georgia", serif;
-      letter-spacing: 0.16em;
-      font-size: 11px;
-      text-transform: uppercase;
       display: flex;
       align-items: center;
-      gap: 6px;
-    }
-    .logo img {
-      height: 38px;
-      width: 38px;
-      border-radius: 50%;
-      object-fit: cover;
-      box-shadow: 0 0 16px rgba(224,177,90,0.4);
-      border: 2px solid rgba(0,0,0,0.8);
-      background: #b0191f;
-    }
-    .logo span { color: var(--accent); }
-    .nav-links { display: none; }
-    .nav-cta {
-      border: 1px solid rgba(224,177,90,0.6);
-      padding: 6px 12px;
-      border-radius: 999px;
-      font-size: 9px;
-      letter-spacing: 0.12em;
+      gap: 8px;
+      font-size: 12px;
       text-transform: uppercase;
-      background: rgba(12,4,6,0.7);
-      color: var(--accent);
-      cursor: pointer;
+      letter-spacing: 0.15em;
     }
-    .nav-cta:active { transform: scale(0.95); }
 
-    .hero { padding: 50px 0 40px; display: grid; grid-template-columns: 1fr; gap: 24px; }
-    .hero-kicker { font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent-soft); margin-bottom: 12px; }
-    .hero-title { font-family: "Georgia", serif; font-size: 24px; line-height: 1.3; margin-bottom: 14px; }
-    .hero-title span { color: var(--accent); }
-    .hero-sub { font-size: 13px; color: var(--muted); margin-bottom: 16px; line-height: 1.5; }
-    .hero-badges { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
-    .badge {
-      border-radius: 999px;
-      border: 1px solid rgba(224,177,90,0.45);
-      padding: 4px 10px;
-      font-size: 9px;
-      text-transform: uppercase;
-      color: var(--accent);
-      background: rgba(24,11,12,0.7);
+    .logo img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 2px solid rgba(224, 177, 90, 0.6);
     }
-    .hero-cta-row { display: flex; flex-wrap: wrap; gap: 10px; }
-    .btn-primary {
-      border: none;
-      border-radius: 999px;
-      padding: 9px 18px;
-      font-size: 10px;
-      text-transform: uppercase;
+
+    .logo span { color: var(--accent); }
+
+    .nav-cta {
       background: var(--accent);
       color: var(--bg);
+      border: none;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 10px;
+      text-transform: uppercase;
       cursor: pointer;
     }
-    .btn-primary:active { filter: brightness(0.95); }
-    .hero-note { font-size: 10px; color: var(--muted); line-height: 1.4; }
-    .hero-note a { color: var(--accent); }
 
-    .hero-card {
-      background: radial-gradient(circle at top, #3a1818 0, #080406 60%);
-      border-radius: 16px;
-      border: 1px solid rgba(224,177,90,0.35);
-      padding: 14px;
-    }
-    .hc-label { font-size: 9px; text-transform: uppercase; color: var(--muted); }
-    .hc-quote { font-family: "Georgia", serif; font-size: 12px; line-height: 1.5; margin: 12px 0; }
+    main { padding: 40px 20px; }
 
-    .section { padding: 40px 0; border-top: 1px solid rgba(224,177,90,0.12); }
-    .section-title { font-family: "Georgia", serif; font-size: 18px; margin-bottom: 8px; }
-    .section-sub { font-size: 12px; color: var(--muted); margin-bottom: 20px; line-height: 1.5; }
+    .hero { margin: 40px 0; }
 
-    .code-grid, .persona-grid, .rituals-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: 12px;
+    .hero-title {
+      font-family: Georgia, serif;
+      font-size: 28px;
+      margin: 20px 0;
+      line-height: 1.4;
     }
-    .code-item, .persona, .ritual {
-      background: linear-gradient(145deg, #2a1013, #090305);
-      border-radius: 14px;
-      padding: 12px;
-      border: 1px solid rgba(224,177,90,0.25);
-    }
-    .code-tag, .persona-label, .ritual-tag {
-      font-size: 9px;
-      text-transform: uppercase;
-      color: var(--accent-soft);
-      margin-bottom: 4px;
-    }
-    .code-title, .persona-title, .ritual-title { font-size: 12px; margin-bottom: 4px; }
-    .code-text, .persona-text, .ritual-text { font-size: 11px; color: var(--muted); line-height: 1.4; }
 
-    .photo-placeholder {
-      width: 100%;
-      height: 140px;
-      border-radius: 12px;
-      border: 1px dashed rgba(224,177,90,0.6);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 10px;
-      font-size: 10px;
+    .hero-title span { color: var(--accent); }
+
+    .hero-sub {
+      font-size: 14px;
       color: var(--muted);
-      background: rgba(24,11,12,0.85);
+      max-width: 600px;
+      margin-bottom: 20px;
+    }
+
+    .section {
+      margin: 50px 0;
+    }
+
+    .section-title {
+      font-family: Georgia, serif;
+      font-size: 24px;
       margin-bottom: 10px;
     }
 
-    .club-form { display: grid; grid-template-columns: 1fr; gap: 20px; }
-    .form-card {
-      border-radius: 14px;
-      padding: 14px;
-      background: linear-gradient(145deg, #2a1218, #070306);
-      border: 1px solid rgba(224,177,90,0.3);
+    .section-desc {
+      font-size: 13px;
+      color: var(--muted);
+      max-width: 600px;
+      margin-bottom: 20px;
     }
-    .form-row { margin-bottom: 10px; }
-    label { display: block; font-size: 11px; color: var(--muted); margin-bottom: 4px; }
-    input, textarea {
-      width: 100%;
-      border-radius: 8px;
-      border: 1px solid rgba(224,177,90,0.4);
-      background: #120609;
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      background: rgba(24, 11, 12, 0.7);
+      border: 1px solid rgba(224, 177, 90, 0.3);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .card-title {
+      font-size: 14px;
+      margin-bottom: 8px;
       color: var(--text);
-      padding: 8px;
-      font-size: 12px;
     }
-    textarea { resize: vertical; min-height: 60px; }
-    input:focus, textarea:focus { border-color: var(--accent); }
 
-    .form-success { font-size: 11px; color: #34d399; margin-top: 8px; display: none; }
-    .form-error { font-size: 11px; color: var(--danger); margin-top: 8px; display: none; }
+    .card-text {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
 
-    .contacts-block { font-size: 12px; color: var(--muted); }
-    .contacts-block strong { color: var(--text); }
-    .contacts-block a { color: var(--accent); text-decoration: none; }
-    .contacts-block p { margin-bottom: 6px; }
+    .btn {
+      background: var(--accent);
+      color: var(--bg);
+      border: none;
+      padding: 10px 20px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 11px;
+      text-transform: uppercase;
+      margin-top: 10px;
+    }
 
     footer {
-      border-top: 1px solid rgba(224,177,90,0.2);
-      padding: 16px 0 20px;
-      font-size: 10px;
-      color: var(--muted);
       text-align: center;
-    }
-
-    @media (min-width: 900px) {
-      .nav-links { display: flex !important; gap: 14px; }
-      .hero { grid-template-columns: 3fr 2fr; gap: 30px; }
+      padding: 20px;
+      font-size: 11px;
+      color: var(--muted);
+      border-top: 1px solid rgba(224, 177, 90, 0.2);
     }
   </style>
 </head>
 <body>
 
+<!-- DOOR ANIMATION -->
 <div id="doorOverlay">
-  <div class="door door-left"></div>
-  <div class="door door-right"></div>
-  <div class="door-logo-wrapper">
-    <img src="logo-gentlemen.png" alt="Gentlemen Barber Club" class="door-logo">
-    <div class="door-text">Gentlemen Barber Club</div>
-    <div class="door-subtext">Закрытый мужской клуб</div>
+  <div class="door-left"></div>
+  <div class="door-right"></div>
+  <div class="door-content">
+    <img src="logo-gentlemen.png" alt="Logo" class="door-logo">
+    <div class="door-title">Gentlemen Barber Club</div>
   </div>
 </div>
 
+<!-- HEADER -->
 <header>
   <div class="container nav">
     <div class="logo">
-      <img src="logo-gentlemen.png" alt="Gentlemen">
+      <img src="logo-gentlemen.png" alt="Logo">
       <span>Gentlemen</span> Barber Club
     </div>
-    <nav class="nav-links">
-      <a href="#code">Код клуба</a>
-      <a href="#rituals">Ритуалы</a>
-      <a href="#master">Мастер</a>
-      <a href="#join">Вступить</a>
-    </nav>
-    <button class="nav-cta" onclick="scrollToJoin()">Запросить приглашение</button>
+    <button class="nav-cta" onclick="alert('Запись в клуб')">Запросить приглашение</button>
   </div>
 </header>
 
+<!-- MAIN -->
 <main class="container">
-  <section class="hero" id="top">
-    <div>
-      <div class="hero-kicker">Закрытый мужской клуб · Нижний Новгород · Белозёрская 4</div>
-      <h1 class="hero-title">
-        Если образ для тебя — не главное, рядом есть сетевые барбершопы.<br
+  <section class="hero">
+    <div class="hero-title">Если образ для тебя — не главное,<br><span>рядом есть сетевые барбершопы.</span></div>
+    <p class="hero-sub">
+      Gentlemen Barber Club — эволюция «Джентльменов культуры». Не франшиза и не конвейер, 
+      а барбершоп, в котором есть душа, и каждую работу мастер делает как авторскую.
+    </p>
+  </section>
+
+  <section class="section" id="code">
+    <h2 class="section-title">Код клуба</h2>
+    <p class="section-desc">Мы не гонимся за количеством стрижек в день. Здесь важны время, уважение и образ.</p>
+    
+    <div class="grid">
+      <div class="card">
+        <div class="card-title">Правило №1: Время дороже денег</div>
+        <div class="card-text">Запись по времени. Опоздание более чем на 10 минут — визит отменён.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Правило №2: Не торгуемся за результат</div>
+        <div class="card-text">Здесь нет скидок и акций. Цена отражает опыт мастера и внимание к деталям.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Правило №3: Тишина — тоже сервис</div>
+        <div class="card-text">Хочешь честный разговор — говорим. Нужен час тишины — оставляем в покое.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="rituals">
+    <h2 class="section-title">Ритуалы клуба</h2>
+    <p class="section-desc">Каждый ритуал — это время, внимание и результат, который держится дольше воскресенья.</p>
+    
+    <div class="grid">
+      <div class="card">
+        <div class="card-title">Обновление образа</div>
+        <div class="card-text">Стрижка под твой ритм жизни: офис, встречи, вечер. 45–60 минут.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Сила (борода)</div>
+        <div class="card-text">Форма, объём и аккуратность без шаблонных контуров.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Тишина</div>
+        <div class="card-text">Для тех, кому нужен час без звонков. Только работа мастера.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="join">
+    <h2 class="section-title">Вступить в клуб</h2>
+    <p class="section-desc">Расскажи немного о себе — и если у нас есть место, мы свяжемся.</p>
+    
+    <div class="card">
+      <input type="text" placeholder="Имя" style="width: 100%; padding: 10px; margin-bottom: 10px; border-radius: 8px; border: 1px solid rgba(224,177,90,0.4); background: #120609; color: var(--text);">
+      <input type="text" placeholder="Телефон или Telegram" style="width: 100%; padding: 10px; margin-bottom: 10px; border-radius: 8px; border: 1px solid rgba(224,177,90,0.4); background: #120609; color: var(--text);">
+      <button class="btn" onclick="alert('Заявка отправлена!')">Отправить заявку</button>
+    </div>
+  </section>
+</main>
+
+<footer>
+  © 2026 Gentlemen Barber Club · Нижний Новгород, Белозёрская 4
+</footer>
+
+<script>
+  window.addEventListener('load', function() {
+    const overlay = document.getElementById('doorOverlay');
+    setTimeout(() => {
+      overlay.classList.add('open');
+      setTimeout(() => {
+        overlay.classList.add('hidden');
+      }, 1000);
+    }, 500);
+  });
+
+  function scrollToJoin() {
+    document.getElementById('join').scrollIntoView({ behavior: 'smooth' });
+  }
+</script>
+
+</body>
+</html>

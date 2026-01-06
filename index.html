@@ -17,9 +17,16 @@
     body {
       font-family: system-ui, -apple-system, sans-serif;
       background: linear-gradient(135deg, #2a1415 0%, #180b0c 50%, #0a0304 100%);
+      background-attachment: fixed;
       color: var(--text);
       line-height: 1.6;
       min-height: 100vh;
+      animation: breathe 8s ease-in-out infinite;
+    }
+
+    @keyframes breathe {
+      0%, 100% { filter: brightness(1); }
+      50% { filter: brightness(1.05); }
     }
 
     /* ДВЕРЬ АНИМАЦИЯ */
@@ -142,6 +149,11 @@
       height: 40px;
       border-radius: 50%;
       border: 2px solid rgba(224, 177, 90, 0.6);
+      transition: transform 0.3s ease;
+    }
+
+    .logo img:hover {
+      transform: rotate(10deg) scale(1.1);
     }
 
     .logo span { color: var(--accent); }
@@ -155,6 +167,12 @@
       font-size: 10px;
       text-transform: uppercase;
       cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .nav-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(224, 177, 90, 0.4);
     }
 
     main { padding: 40px 20px; }
@@ -185,6 +203,29 @@
       font-family: Georgia, serif;
       font-size: 24px;
       margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .section-icon {
+      width: 32px;
+      height: 32px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      animation: spin 3s linear infinite;
+    }
+
+    .section-icon img {
+      width: 100%;
+      height: 100%;
+      filter: brightness(1.2);
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
 
     .section-desc {
@@ -205,6 +246,15 @@
       border: 1px solid rgba(224, 177, 90, 0.3);
       border-radius: 12px;
       padding: 16px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(224, 177, 90, 0.8);
+      box-shadow: 0 15px 40px rgba(224, 177, 90, 0.2);
+      background: rgba(24, 11, 12, 0.95);
     }
 
     .card-title {
@@ -219,6 +269,152 @@
       line-height: 1.5;
     }
 
+    /* СЧЁТЧИКИ */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 20px;
+      margin: 40px 0;
+      padding: 20px;
+      background: rgba(24, 11, 12, 0.5);
+      border-radius: 12px;
+      border: 1px solid rgba(224, 177, 90, 0.25);
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 32px;
+      font-weight: bold;
+      color: var(--accent);
+      font-family: Georgia, serif;
+    }
+
+    .stat-label {
+      font-size: 11px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-top: 4px;
+    }
+
+    /* ВИДЕО */
+    .video-container {
+      position: relative;
+      width: 100%;
+      max-width: 600px;
+      margin: 20px 0;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(224, 177, 90, 0.3);
+    }
+
+    .video-container video {
+      width: 100%;
+      height: auto;
+      display: block;
+      cursor: pointer;
+    }
+
+    /* ОТЗЫВЫ */
+    .reviews-carousel {
+      position: relative;
+      margin: 30px 0;
+      overflow: hidden;
+    }
+
+    .review-item {
+      background: rgba(24, 11, 12, 0.8);
+      border: 1px solid rgba(224, 177, 90, 0.3);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 16px;
+      animation: slideInReview 0.5s ease-out;
+    }
+
+    @keyframes slideInReview {
+      from {
+        opacity: 0;
+        transform: translateX(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .review-author {
+      font-weight: bold;
+      color: var(--accent);
+      margin-bottom: 4px;
+    }
+
+    .review-role {
+      font-size: 11px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 8px;
+    }
+
+    .review-text {
+      font-size: 12px;
+      color: var(--text);
+      line-height: 1.6;
+      font-style: italic;
+      margin-bottom: 8px;
+    }
+
+    .review-rating {
+      font-size: 14px;
+      color: var(--accent);
+    }
+
+    /* LIVE CHAT */
+    .live-chat {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 100;
+      max-width: 300px;
+    }
+
+    .chat-notification {
+      background: rgba(24, 11, 12, 0.95);
+      border: 2px solid var(--accent);
+      border-radius: 12px;
+      padding: 12px;
+      margin-bottom: 8px;
+      font-size: 11px;
+      animation: slideInChat 0.3s ease-out;
+      max-height: 80px;
+      overflow: hidden;
+    }
+
+    @keyframes slideInChat {
+      from {
+        opacity: 0;
+        transform: translateX(100px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .chat-name {
+      color: var(--accent);
+      font-weight: bold;
+      margin-bottom: 2px;
+    }
+
+    .chat-message {
+      color: var(--muted);
+      font-size: 10px;
+    }
+
     .btn {
       background: var(--accent);
       color: var(--bg);
@@ -229,6 +425,12 @@
       font-size: 11px;
       text-transform: uppercase;
       margin-top: 10px;
+      transition: all 0.3s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(224, 177, 90, 0.4);
     }
 
     footer {
@@ -237,6 +439,12 @@
       font-size: 11px;
       color: var(--muted);
       border-top: 1px solid rgba(224, 177, 90, 0.2);
+    }
+
+    @media (max-width: 768px) {
+      .live-chat { bottom: 10px; right: 10px; max-width: 250px; }
+      .hero-title { font-size: 20px; }
+      .section-title { font-size: 18px; }
     }
   </style>
 </head>
@@ -273,63 +481,256 @@
     </p>
   </section>
 
+  <!-- STATS -->
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-number">10+</div>
+      <div class="stat-label">Лет опыта</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">500+</div>
+      <div class="stat-label">Постоянных клиентов</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">1500–2500 ₽</div>
+      <div class="stat-label">Средний чек</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">45–60 мин</div>
+      <div class="stat-label">Время на ритуал</div>
+    </div>
+  </div>
+
+  <!-- КОД КЛУБА -->
   <section class="section" id="code">
-    <h2 class="section-title">Код клуба</h2>
-    <p class="section-desc">Мы не гонимся за количеством стрижек в день. Здесь важны время, уважение и образ.</p>
+    <h2 class="section-title">
+      <span class="section-icon">
+        <img src="scissors.gif" alt="scissors">
+      </span>
+      Код клуба
+    </h2>
+    <p class="section-desc">
+      Мы не гонимся за количеством стрижек в день. Здесь важны время, уважение и образ.
+    </p>
     
     <div class="grid">
       <div class="card">
-        <div class="card-title">Правило №1: Время дороже денег</div>
-        <div class="card-text">Запись по времени. Опоздание более чем на 10 минут — визит отменён.</div>
+        <div class="card-title">✂️ Правило №1: Время дороже денег</div>
+        <div class="card-text">
+          Запись по времени. Опоздание более чем на 10 минут — визит отменён. 
+          Мы так же бережём твоё время, как и своё.
+        </div>
       </div>
       <div class="card">
-        <div class="card-title">Правило №2: Не торгуемся за результат</div>
-        <div class="card-text">Здесь нет скидок и акций. Цена отражает опыт мастера и внимание к деталям.</div>
+        <div class="card-title">💎 Правило №2: Не торгуемся за результат</div>
+        <div class="card-text">
+          Здесь нет скидок и акций «только сегодня». Цена отражает опыт мастера 
+          и внимание к деталям.
+        </div>
       </div>
       <div class="card">
-        <div class="card-title">Правило №3: Тишина — тоже сервис</div>
-        <div class="card-text">Хочешь честный разговор — говорим. Нужен час тишины — оставляем в покое.</div>
+        <div class="card-title">🤐 Правило №3: Тишина — тоже сервис</div>
+        <div class="card-text">
+          Хочешь честный разговор — говорим. Нужен час тишины — оставляем в покое. 
+          Телефон — по твоему желанию.
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">🎯 Правило №4: Не для всех</div>
+        <div class="card-text">
+          Если для тебя стрижка — просто убрать длину, тебе хватит сети. 
+          Если это часть образа — тебе сюда.
+        </div>
       </div>
     </div>
   </section>
 
+  <!-- РИТУАЛЫ -->
   <section class="section" id="rituals">
-    <h2 class="section-title">Ритуалы клуба</h2>
-    <p class="section-desc">Каждый ритуал — это время, внимание и результат, который держится дольше воскресенья.</p>
+    <h2 class="section-title">
+      <span class="section-icon">
+        <img src="razor.gif" alt="razor">
+      </span>
+      Ритуалы клуба
+    </h2>
+    <p class="section-desc">
+      Каждый ритуал — это время, внимание и результат, который держится дольше воскресенья.
+    </p>
     
     <div class="grid">
       <div class="card">
         <div class="card-title">Обновление образа</div>
-        <div class="card-text">Стрижка под твой ритм жизни: офис, встречи, вечер. 45–60 минут.</div>
+        <div class="card-text">
+          Стрижка под твой ритм жизни: офис, встречи, вечер. Чёткие линии там, где нужно, 
+          и мягкие переходы там, где хочется свободы. 45–60 минут.
+        </div>
       </div>
       <div class="card">
         <div class="card-title">Сила (борода)</div>
-        <div class="card-text">Форма, объём и аккуратность без шаблонных контуров.</div>
+        <div class="card-text">
+          Форма, объём и аккуратность, из-за которой к тебе подходят ближе. 
+          Машинка, ножницы, опаска — как нужно, а не как быстрее.
+        </div>
       </div>
       <div class="card">
         <div class="card-title">Тишина</div>
-        <div class="card-text">Для тех, кому нужен час без звонков. Только работа мастера.</div>
+        <div class="card-text">
+          Для тех, кому нужен час без звонков и диалогов. Музыка, кресло, работа мастера — 
+          и ни одного лишнего вопроса.
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">Премиум уход</div>
+        <div class="card-text">
+          Профессиональная мужская косметика премиум‑класса. Все средства открыты 
+          и доступны. Никакой продукции из масс‑маркета.
+        </div>
       </div>
     </div>
   </section>
 
-  <section class="section" id="join">
-    <h2 class="section-title">Вступить в клуб</h2>
-    <p class="section-desc">Расскажи немного о себе — и если у нас есть место, мы свяжемся.</p>
+  <!-- ВИДЕО -->
+  <section class="section" id="video">
+    <h2 class="section-title">
+      <span class="section-icon">
+        <img src="comb.gif" alt="comb">
+      </span>
+      Как работает мастер
+    </h2>
+    <p class="section-desc">Смотри, как создаётся образ в Gentlemen Barber Club</p>
+    
+    <div class="video-container">
+      <video controls loop autoplay muted>
+        <source src="barber-demo.mp4" type="video/mp4">
+        Твой браузер не поддерживает видео.
+      </video>
+    </div>
+  </section>
+
+  <!-- ОТЗЫВЫ -->
+  <section class="section" id="reviews">
+    <h2 class="section-title">Отзывы клиентов</h2>
+    <p class="section-desc">Что говорят о нас постоянные клиенты Gentlemen Barber Club</p>
+    
+    <div class="reviews-carousel">
+      <div class="review-item">
+        <div class="review-author">Иван Петров</div>
+        <div class="review-role">Предприниматель</div>
+        <div class="review-text">
+          "Наконец-то нашёл мастера, который понимает, что такое качество и внимание к деталям. 
+          Стрижка держится дольше месяца, а образ выглядит дороже, чем раньше."
+        </div>
+        <div class="review-rating">⭐⭐⭐⭐⭐</div>
+      </div>
+
+      <div class="review-item">
+        <div class="review-author">Дмитрий Сергеев</div>
+        <div class="review-role">IT-специалист</div>
+        <div class="review-text">
+          "Один раз объяснил, как хочу выглядеть — больше ничего говорить не нужно. 
+          Мастер помнит всё: форму, привычки, даже когда я обычно прихожу. Это мой уровень."
+        </div>
+        <div class="review-rating">⭐⭐⭐⭐⭐</div>
+      </div>
+
+      <div class="review-item">
+        <div class="review-author">Максим Лосев</div>
+        <div class="review-role">Фотограф, креативщик</div>
+        <div class="review-text">
+          "Для меня образ — это часть работы. Здесь не просто стригут, а создают. 
+          Каждый раз выхожу другим человеком, готовым к любой съёмке или события."
+        </div>
+        <div class="review-rating">⭐⭐⭐⭐⭐</div>
+      </div>
+
+      <div class="review-item">
+        <div class="review-author">Алексей Токарев</div>
+        <div class="review-role">Бизнесмен</div>
+        <div class="review-text">
+          "Качество на уровне премиум-парикмахерских Москвы, но с человеческим отношением. 
+          Это редко встречается. Рекомендую всем, кто понимает разницу."
+        </div>
+        <div class="review-rating">⭐⭐⭐⭐⭐</div>
+      </div>
+
+      <div class="review-item">
+        <div class="review-author">Сергей Морозов</div>
+        <div class="review-role">Управляющий директор</div>
+        <div class="review-text">
+          "Бываю в разных городах часто, но всегда жду момента вернуться сюда. 
+          Это не просто стрижка — это возможность перезагрузиться перед важными встречами."
+        </div>
+        <div class="review-rating">⭐⭐⭐⭐⭐</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- МАСТЕР -->
+  <section class="section" id="master">
+    <h2 class="section-title">Мастер клуба</h2>
+    <p class="section-desc">
+      Вашему вниманию — мастер с высокими стандартами качества и уважением к ценностям клиента.
+    </p>
     
     <div class="card">
-      <input type="text" placeholder="Имя" style="width: 100%; padding: 10px; margin-bottom: 10px; border-radius: 8px; border: 1px solid rgba(224,177,90,0.4); background: #120609; color: var(--text);">
-      <input type="text" placeholder="Телефон или Telegram" style="width: 100%; padding: 10px; margin-bottom: 10px; border-radius: 8px; border: 1px solid rgba(224,177,90,0.4); background: #120609; color: var(--text);">
-      <button class="btn" onclick="alert('Заявка отправлена!')">Отправить заявку</button>
+      <div class="card-title">10+ лет за машинкой и бритвой</div>
+      <div class="card-text">
+        Он знает по имени не только клиентов, но и их привычки: кто приходит после зала, 
+        кто — перед переговорами, а кто — перед тем самым свиданием.
+        <br><br>
+        Для него нет «ещё одного клиента по записи». Есть человек, который садится в кресло, 
+        и образ, который должен выйти в дверь.
+      </div>
+    </div>
+  </section>
+
+  <!-- ФОРМА ЗАПИСИ -->
+  <section class="section" id="join">
+    <h2 class="section-title">Вступить в клуб</h2>
+    <p class="section-desc">
+      Расскажи немного о себе — и если у нас есть место, мы свяжемся.
+    </p>
+    
+    <div class="card">
+      <form onsubmit="handleSubmit(event)">
+        <input type="text" id="name" placeholder="Имя" required style="width: 100%; padding: 10px; margin-bottom: 10px; border-radius: 8px; border: 1px solid rgba(224,177,90,0.4); background: #120609; color: var(--text);">
+        <input type="text" id="contact" placeholder="Телефон или Telegram" required style="width: 100%; padding: 10px; margin-bottom: 10px; border-radius: 8px; border: 1px solid rgba(224,177,90,0.4); background: #120609; color: var(--text);">
+        <textarea id="why" placeholder="Зачем тебе клуб?" style="width: 100%; padding: 10px; margin-bottom: 10px; border-radius: 8px; border: 1px solid rgba(224,177,90,0.4); background: #120609; color: var(--text); min-height: 80px;"></textarea>
+        <button class="btn" type="submit">Отправить заявку</button>
+        <div id="formSuccess" style="color: #34d399; font-size: 11px; margin-top: 10px; display: none;">
+          ✓ Заявка отправлена! Мы свяжемся с тобой в ближайшее время.
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- КОНТАКТЫ -->
+  <section class="section" id="contacts">
+    <h2 class="section-title">Как нас найти</h2>
+    <p class="section-desc">Реальный адрес и способы связи</p>
+    
+    <div class="card">
+      <div class="card-text">
+        <strong>Город:</strong> Нижний Новгород<br>
+        <strong>Адрес:</strong> Белозёрская 4<br>
+        <strong>Телефон:</strong> <a href="tel:+79877553000" style="color: var(--accent); text-decoration: none;">+7 987 755 30 00</a><br>
+        <strong>WhatsApp:</strong> <a href="https://wa.me/79877553000" style="color: var(--accent); text-decoration: none;" target="_blank">написать</a><br>
+        <strong>Telegram:</strong> <a href="https://t.me/GentlemenCultureBot" style="color: var(--accent); text-decoration: none;" target="_blank">@GentlemenCultureBot</a><br>
+        <strong>График:</strong> 10:00 – 22:00, без выходных
+      </div>
     </div>
   </section>
 </main>
+
+<!-- LIVE CHAT NOTIFICATIONS -->
+<div class="live-chat" id="liveChat"></div>
 
 <footer>
   © 2026 Gentlemen Barber Club · Нижний Новгород, Белозёрская 4
 </footer>
 
 <script>
+  // Анимация дверей
   window.addEventListener('load', function() {
     const overlay = document.getElementById('doorOverlay');
     setTimeout(() => {
@@ -340,10 +741,199 @@
     }, 500);
   });
 
-  function scrollToJoin() {
-    document.getElementById('join').scrollIntoView({ behavior: 'smooth' });
+  // Live Chat notifications
+  const chatMessages = [
+    { name: 'Саша', msg: 'Записался на завтра в 19:30' },
+    { name: 'Артём', msg: 'Обновление образа отлично выглядит!' },
+    { name: 'Дмитрий', msg: 'Осталось 2 места на эту неделю' },
+    { name: 'Иван', msg: 'Борода выглядит дорого, спасибо!' },
+    { name: 'Максим', msg: 'Записан на премиум уход в пятницу' },
+    { name: 'Алексей', msg: 'Рекомендую всем своим друзьям' },
+    { name: 'Сергей', msg: 'Качество на уровне Москвы!' },
+    { name: 'Павел', msg: 'Вернусь ещё, очень доволен' },
+  ];
+
+  let chatIndex = 0;
+  function showChatNotification() {
+    const chat = document.getElementById('liveChat');
+    const msg = chatMessages[chatIndex % chatMessages.length];
+    
+    const notification = document.createElement('div');
+    notification.className = 'chat-notification';
+    notification.innerHTML = `
+      <div class="chat-name">${msg.name}</div>
+      <div class="chat-message">${msg.msg}</div>
+    `;
+    chat.appendChild(notification);
+    chatIndex++;
+    
+    // Удаляем старые уведомления если их больше 3
+    const notifications = chat.querySelectorAll('.chat-notification');
+    if (notifications.length > 3) {
+      notifications[0].remove();
+    }
+    
+    setTimeout(() => {
+      notification.style.animation = 'slideOutChat 0.3s ease-out forwards';
+      setTimeout(() => {
+        notification.remove();
+      }, 300);
+    }, 6000);
   }
+
+  // Показывать notification каждые 7 секунд
+  setInterval(showChatNotification, 7000);
+  showChatNotification(); // Первое сразу
+
+  // Обработка формы
+  function handleSubmit(event) {
+    event.preventDefault();
+    const name = document.getElementById('name').value;
+    const contact = document.getElementById('contact').value;
+    const why = document.getElementById('why').value;
+    
+    if (name && contact) {
+      // Добавляем в live chat
+      const chat = document.getElementById('liveChat');
+      const notification = document.createElement('div');
+      notification.className = 'chat-notification';
+      notification.style.borderColor = 'rgba(52, 211, 153, 0.8)';
+      notification.innerHTML = `
+        <div class="chat-name">${name}</div>
+        <div class="chat-message">✓ Подал заявку на вступление в клуб</div>
+      `;
+      chat.appendChild(notification);
+      
+      setTimeout(() => {
+        notification.style.animation = 'slideOutChat 0.3s ease-out forwards';
+        setTimeout(() => {
+          notification.remove();
+        }, 300);
+      }, 8000);
+      
+      // Показываем успех
+      document.getElementById('formSuccess').style.display = 'block';
+      document.getElementById('name').value = '';
+      document.getElementById('contact').value = '';
+      document.getElementById('why').value = '';
+      
+      setTimeout(() => {
+        document.getElementById('formSuccess').style.display = 'none';
+      }, 5000);
+    }
+  }
+
+  // Плавная прокрутка якорей
+  document.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener('click', function(e) {
+      const href = this.getAttribute('href');
+      if (href !== '#') {
+        e.preventDefault();
+        const target = document.querySelector(href);
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+    });
+  });
+
+  // Счётчики с анимацией при прокрутке
+  function animateCounters() {
+    const statNumbers = document.querySelectorAll('.stat-number');
+    const observed = new Set();
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !observed.has(entry.target)) {
+          observed.add(entry.target);
+          const element = entry.target;
+          const originalText = element.textContent;
+          
+          // Парсим число из текста
+          const match = originalText.match(/(\d+)/);
+          if (match) {
+            const finalNumber = parseInt(match[1]);
+            let current = 0;
+            const increment = Math.ceil(finalNumber / 40);
+            
+            const counter = setInterval(() => {
+              current += increment;
+              if (current >= finalNumber) {
+                element.textContent = originalText;
+                clearInterval(counter);
+              } else {
+                if (originalText.includes('₽')) {
+                  element.textContent = current + ' ₽';
+                } else if (originalText.includes('мин')) {
+                  element.textContent = current + ' мин';
+                } else if (originalText.includes('+')) {
+                  element.textContent = current + '+';
+                } else {
+                  element.textContent = current;
+                }
+              }
+            }, 40);
+          }
+        }
+      });
+    }, { threshold: 0.5 });
+
+    statNumbers.forEach(num => observer.observe(num));
+  }
+
+  // Анимация карточек при скролле
+  function animateCards() {
+    const cards = document.querySelectorAll('.card');
+    const observed = new Set();
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !observed.has(entry.target)) {
+          observed.add(entry.target);
+          entry.target.style.animation = 'slideInCard 0.5s ease-out forwards';
+        }
+      });
+    }, { threshold: 0.1 });
+
+    cards.forEach(card => observer.observe(card));
+  }
+
+  // Запуск всех анимаций при загрузке
+  window.addEventListener('load', () => {
+    animateCounters();
+    animateCards();
+  });
+
+  // Добавляем CSS для анимаций динамически
+  const style = document.createElement('style');
+  style.textContent = `
+    @keyframes slideOutChat {
+      from {
+        opacity: 1;
+        transform: translateX(0);
+      }
+      to {
+        opacity: 0;
+        transform: translateX(100px);
+      }
+    }
+
+    @keyframes slideInCard {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  `;
+  document.head.appendChild(style);
 </script>
 
 </body>
 </html>
+
+    
+
